@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p>Número de visitas:</p>
+    <span id="contador"></span>
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hub = $.connection.contador;
+            hub.on("onActualizarContador", function (data) {
+                $("#contador").text(data.contador);
+            });
+            $.connection.hub.start().done(function () {
+                hub.server.aumentarContador();
+            });
+        });
+    </script>
+</body>
+</html>
